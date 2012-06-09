@@ -1,0 +1,14 @@
+{
+  "author": "Mario Gutierrez <mario@mgutz.com>",
+  "name": "execSync",
+  "description": "Synchronous exec when you NEED it.",
+  "version": "0.0.1",
+  "dependencies": {
+    "ffi": "~1.0.0"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
+  }
+}
