@@ -4,7 +4,7 @@
   "description": "Synchronous exec when you NEED it.",
   "version": "0.0.1",
   "dependencies": {
-    "ffi": "~1.0.0"
+    "ffi": "latest"
   },
   "devDependencies": {},
   "optionalDependencies": {},
