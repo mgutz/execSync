@@ -2,7 +2,7 @@
   "author": "Mario Gutierrez <mario@mgutz.com>",
   "name": "execSync",
   "description": "Synchronous exec when you NEED it.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "dependencies": {
     "ffi": "latest"
   },
