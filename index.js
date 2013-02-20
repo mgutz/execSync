@@ -13,7 +13,7 @@ var libc = ffi.Library(null, {
   pclose: ['void', [ 'pointer']],
 
   // char* fgets(char* buff, int buff, in)
-  fgets: ['string', ['string', 'int','pointer']],
+  fgets: ['string', ['pointer', 'int','pointer']],
 
   system: ['int32', ['string']]
 });
