@@ -21,11 +21,12 @@ describe('execSync', function() {
     assert.equal(code, 0);
   });
 
-  // it('should get code, stdout and stderr', function() {
-  //   var result = execSync.exec('echo foo; echo oops 1>&2; exit 42')
-  //   assert.equal(result.stdout, 'foo');
-  //   assert.equal(result.stderr, 'oops');
-  //   assert.equal(result.code, 42);
-  // });
+  it('should get code, stdout and stderr', function() {
+    var result = execSync.exec('echo foo; echo oops 1>&2; exit 42');
+    console.log('result', result);
+    assert.equal(result.stdout, 'foo');
+    assert.equal(result.stderr, 'oops');
+    assert.equal(result.code, 42);
+  });
 
 });
