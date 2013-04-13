@@ -26,7 +26,7 @@ var libc = ffi.Library(null, {
  *  var result = execSync.code('rm -rf tempdir');
  */
 function code(cmd) {
-  return libc.system(cmd);
+  return libc.system(cmd) >> 8;
 }
 
 
