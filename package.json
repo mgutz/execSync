@@ -2,11 +2,14 @@
   "author": "Mario Gutierrez <mario@mgutz.com>",
   "name": "execSync",
   "description": "Synchronous exec when you NEED it.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
     "ffi": "latest"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "~1.5.0",
+    "mocha": "~1.9.0"
+  },
   "optionalDependencies": {},
   "engines": {
     "node": "*"
