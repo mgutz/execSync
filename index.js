@@ -10,12 +10,10 @@ var libc = ffi.Library(null, {
   popen: ['pointer', ['string', 'string']],
 
   // void pclose(FILE* fp);
-  pclose: ['void', [ 'pointer']],
+  pclose: ['int', [ 'pointer']],
 
   // char* fgets(char* buff, int buff, in)
   fgets: ['string', ['pointer', 'int','pointer']],
-
-  system: ['int32', ['string']]
 });
 
 
@@ -26,9 +24,37 @@ var libc = ffi.Library(null, {
  *  var result = execSync.code('rm -rf tempdir');
  */
 function code(cmd) {
-  return libc.system(cmd) >> 8;
+  return exec(cmd).code;
 }
 
+
+/**
+ * Executes shell `cmd` returning code and stdout+stderr.
+ *
+ * @example
+ *  var results = execSync.exec('echo my_bad 1>&2; echo $USER');
+ *
+ * @returns Returns { code: Number, stdout: String}. If there is an
+ * error executing cmd, an Error is thrown.
+ */
+function exec(cmd) {
+  var buffer = new Buffer(32);
+  var result = '';
+  var fp = libc.popen('(' + cmd + ') 2>&1', 'r');
+  var code;
+
+  if (!fp) throw new Error('execSync error: '+cmd);
+
+  while(libc.fgets(buffer, 32, fp)) {
+    result += buffer.readCString();
+  }
+  code = libc.pclose(fp) >> 8;
+
+  return {
+    stdout: result,
+    code: code
+  };
+}
 
 /**
  * Executes shell `cmd` returning STDOUT.
@@ -40,24 +66,12 @@ function code(cmd) {
  * an `Error` is thrown.
  */
 function stdout(cmd) {
-  var
-    buffer = new Buffer(1024),
-    result = '',
-    fp = libc.popen(cmd, 'r');
-
-  if (!fp) throw new Error('execSync error: '+cmd);
-
-  while(libc.fgets(buffer, 1024, fp)) {
-    result += buffer.readCString();
-  }
-  libc.pclose(fp);
-
-  return result;
+  return exec(cmd).stdout;
 }
-
 
 module.exports = {
     code: code,
-    stdout: stdout
+    stdout: stdout,
+    exec: exec
 };
 

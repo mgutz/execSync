@@ -24,6 +24,14 @@ Require it
 
     var execSync = require('execSync');
 
+Execute shell commands. `exec` interlaces stdout and stderr to `result.stdout`.
+
+    var result = execSync.exec('echo $USER; echo some_err 1>&2; exit 1');
+    console.log('return code ' + result.code);
+    console.log('stdout + stderr ' + result.stdout);
+
+## Legacy helper functions
+
 Capture STDOUT
 
     var user = execSync.stdout('echo $USER');
