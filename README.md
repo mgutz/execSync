@@ -2,6 +2,8 @@
 
 Executes shell commands synchronously.
 
+**Does not work on Windows**
+
 ## Motivation
 
 Simplifies build scripts.
