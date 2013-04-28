@@ -44,3 +44,8 @@ Get result code
     var code = execSync.code('echo $HOME');
     console.log('result ' + code);
 
+## License
+
+Copyright (c) 2012, 2013 Mario Gutierrez mario@mgutz.com
+
+See the file LICENSE for copying permission.

@@ -3,6 +3,7 @@
   "name": "execSync",
   "description": "Synchronous exec when you NEED it.",
   "version": "0.0.4",
+  "license": "MIT",
   "dependencies": {
     "ffi": "latest"
   },
