@@ -130,9 +130,6 @@ std::string FlattenString(v8::Handle<v8::String> v8str) {
 /**
  * Executes a command.
  */
-
-// Returns the Nth number in the fibonacci sequence where N is the first
-// argument passed.
 Handle<Value> Exec(const Arguments& args) {
     HandleScope scope;
 
