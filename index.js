@@ -7,6 +7,7 @@ var shell = require('./build/Release/shell');
 var temp = require('temp');
 var fs = require('fs');
 var tempName = temp.path({suffix: '.pdf'});
+var isWindows = require('os').platform().indexOf('win') === 0;
 
 function execSync (cmd) {
   try {
@@ -21,9 +22,17 @@ function execSync (cmd) {
 }
 
 
-function exec(cmd) {
+function exec(command) {
   var tempName = temp.path({suffix: '.exec'});
-  var code = execSync('(' + cmd + ') &> ' + tempName);
+  var cmd;
+  if (isWindows)
+    cmd = 'cmd /C ' + command + ' > ' + tempName + ' 2>&1';
+  else 
+    cmd = '(' + command + ') &> ' + tempName;
+
+  console.error('cmd', cmd);
+
+  var code = execSync(cmd);
   var text;
 
   if (fs.existsSync(tempName)) {
@@ -49,4 +58,3 @@ module.exports = {
     execSync: execSync,
     exec: exec
 };
-

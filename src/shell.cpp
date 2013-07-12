@@ -1,21 +1,18 @@
 #include <node.h>
-using namespace v8;
 #include <string>
 
 #ifdef _WIN32
-
 #include <windows.h>
 #include <stdio.h>
 #include <tchar.h>
 #include <strsafe.h>
-
-#else
-
+#else // !_WIN32
 #include <cstdlib>
 #include <cerrno>
 #include <unistd.h>
-
 #endif // _WIN32
+
+using namespace v8;
 
 
 #ifdef _WIN32
@@ -23,14 +20,15 @@ using namespace v8;
 int exec(const char* command) {
     STARTUPINFO si;
     PROCESS_INFORMATION pi;
+    DWORD exitCode;
 
-    ZeroMemory( &si, sizeof(si) );
+    ZeroMemory(&si, sizeof(si));
     si.cb = sizeof(si);
-    ZeroMemory( &pi, sizeof(pi) );
+    ZeroMemory(&pi, sizeof(pi));
 
     // Start the child process.
-    if( !CreateProcess( NULL,   // No module name (use command line)
-                (LPSTR) command,        // Command line
+    if(!CreateProcess(NULL,     // No module name (use command line)
+                (LPSTR) command,// Command line
                 NULL,           // Process handle not inheritable
                 NULL,           // Thread handle not inheritable
                 FALSE,          // Set handle inheritance to FALSE
@@ -38,27 +36,23 @@ int exec(const char* command) {
                 NULL,           // Use parent's environment block
                 NULL,           // Use parent's starting directory
                 &si,            // Pointer to STARTUPINFO structure
-                &pi )           // Pointer to PROCESS_INFORMATION structure
+                &pi)            // Pointer to PROCESS_INFORMATION structure
       )
     {
-        printf( "CreateProcess failed (%d).\n", GetLastError() );
+        printf("CreateProcess failed (%d).\n", GetLastError());
         return 1;
     }
 
     // Wait until child process exits.
-    WaitForSingleObject( pi.hProcess, INFINITE );
-
-
-    DWORD exitCode;
+    WaitForSingleObject(pi.hProcess, INFINITE);
     GetExitCodeProcess(pi.hProcess, &exitCode);
 
     // Close process and thread handles.
-    CloseHandle( pi.hProcess );
-    CloseHandle( pi.hThread );
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
 
     return exitCode;
 }
-
 
 #else // *nix
 
@@ -141,14 +135,10 @@ std::string FlattenString(v8::Handle<v8::String> v8str) {
 Handle<Value> Exec(const Arguments& args) {
     HandleScope scope;
 
-    // Check that there are enough arguments. If we access an index that doesn't
-    // exist, it'll be Undefined().
     if (args.Length() < 1) {
-        // No argument was passed. Throw an exception to alert the user to
-        // incorrect usage. Alternatively, we could just use 0.
         return ThrowException(
-                Exception::TypeError(String::New("First argument must be a string"))
-                );
+            Exception::TypeError(String::New("First argument must be a string"))
+        );
     }
 
     Local<String> str = args[0]->ToString();
