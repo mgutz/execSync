@@ -1,11 +1,11 @@
 {
   "author": "Mario Gutierrez <mario@mgutz.com>",
   "name": "execSync",
-  "description": "Synchronous exec when you NEED it.",
-  "version": "0.0.4",
+  "description": "The missing execSync",
+  "version": "1.0.0-pre",
   "license": "MIT",
   "dependencies": {
-    "ffi": "latest"
+    "temp": "~0.5.1"
   },
   "devDependencies": {
     "chai": "~1.5.0",
