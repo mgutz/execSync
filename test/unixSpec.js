@@ -8,16 +8,16 @@ var fs = require('fs');
 var sh = require('..');
 
 describe('execSync', function() {
-  var execSync = sh.execSync;
+  var exec = sh.exec;
 
   it ('should perform git operations', function() {
-    execSync('rm -rf tmp');
-    execSync('mkdir -p tmp');
-    execSync('git clone git://github.com/mgutz/execSync tmp/execSync');
-    execSync('cd tmp');
-    execSync('git pull origin master')
-    execSync('cd ..');
-    var result = sh.exec('cat tmp/execSync/README.md');
+    exec('rm -rf tmp');
+    exec('mkdir -p tmp');
+    exec('git clone git://github.com/mgutz/execSync tmp/execSync');
+    exec('cd tmp');
+    exec('git pull origin master')
+    exec('cd ..');
+    var result = exec('cat tmp/execSync/README.md');
     assert.include(result.stdout, 'mgutz');
     assert.equal(result.code, 0);
   });
