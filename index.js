@@ -30,15 +30,12 @@ function exec(command) {
   else
     cmd = '(' + command + ') &> ' + tempName;
 
-  console.error('cmd', cmd);
-
   var code = run(cmd);
   var text;
 
   if (fs.existsSync(tempName)) {
     try {
       text = fs.readFileSync(tempName, 'utf8');
-      console.log('TEXT', text);
       fs.unlink(tempName);
     } catch (err) {
       throw new Error('ERROR: could not delete capture file');
