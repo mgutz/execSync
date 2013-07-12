@@ -2,21 +2,13 @@
 
 Executes shell commands synchronously.
 
-**Does not work on Windows**
-
-## Motivation
-
-Simplifies build scripts.
-
-Express 3 has asynchronous templates and helper functions are synchronous.
-Some of my helper functions invoke compilers with async interfaces. I use
-this library in DEVELOPMENT mode to precompile files on the fly through the
-command line.
-
-**NOT RECOMMENDED** on production servers.
-
+__WARNING__ For dev machine shell scripting only. **DO NOT USE** for
+production servers.
 
 ## Install
+
+__Windows__ requires Python and Visual Studio 2012 (Express) installed for
+node to build. See [node-gyp installation](https://github.com/TooTallNate/node-gyp#installation)
 
     npm install execSync
 
@@ -24,25 +16,25 @@ command line.
 
 Require it
 
-    var execSync = require('execSync');
+    var sh = require('execSync');
 
-Execute shell commands. `exec` interlaces stdout and stderr to `result.stdout`.
+`Run` does not capture output.
 
-    var result = execSync.exec('echo $USER; echo some_err 1>&2; exit 1');
+    var code = sh.run('echo $USER; echo some_err 1>&2; exit 1');
+    console.log('return code ' + code);
+
+Use the less efficient `exec` if you need output. `exec` is just redirection
+trickery around `run`.
+
+    var result = sh.exec('echo $USER; echo some_err 1>&2; exit 1');
     console.log('return code ' + result.code);
     console.log('stdout + stderr ' + result.stdout);
 
-## Legacy helper functions
+## Notes
 
-Capture STDOUT
+In *nix and OSX version commands are run via `sh -c YOUR_COMMAND`
 
-    var user = execSync.stdout('echo $USER');
-    console.log('Hello ' + user);
-
-Get result code
-
-    var code = execSync.code('echo $HOME');
-    console.log('result ' + code);
+In __Windows__ commands are run via `cmd /C YOUR_COMMAND`
 
 ## License
 
