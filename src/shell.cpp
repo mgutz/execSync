@@ -2,15 +2,20 @@
 #include <string>
 
 #ifdef _WIN32
+
 #include <windows.h>
 #include <stdio.h>
 #include <tchar.h>
 #include <strsafe.h>
+
 #else // !_WIN32
+
 #include <cstdlib>
 #include <cerrno>
 #include <unistd.h>
-#endif // _WIN32
+#include <sys/wait.h>
+
+#endif // !_WIN32
 
 using namespace v8;
 
