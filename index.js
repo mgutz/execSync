@@ -35,7 +35,7 @@ function exec(command) {
   if (isWindows)
     cmd = 'cmd /C ' + command + ' > ' + tempName + ' 2>&1';
   else
-    cmd = '(' + command + ') &> ' + tempName;
+    cmd = '(' + command + ') > ' + tempName + ' 2>&1';
 
   var code = run(cmd);
   var text;
