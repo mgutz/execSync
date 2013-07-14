@@ -8,13 +8,18 @@ var fs = require('fs');
 var isWindows = require('os').platform().indexOf('win') === 0;
 
 var shell;
-if (isWindows && !fs.existsSync(__dirname + '/build/Release/shell.node')) {
-  try {
-    shell = require('./win32/shell');
-  } catch (err) {
-    throw new Error('execSync incompatible with installed nodejs');
+if (isWindows) {
+  if (!fs.existsSync(__dirname + '/build/Release/shell.node')) {
+    try {
+      //! Loading an add-on built for another version of nodeJs may
+      //! cause seg faults. Windows + open source is not always pleasant
+      shell = require('./win32/shell');
+    } catch (err) {
+      throw new Error('execSync incompatible with installed nodejs');
+    }
   }
-} 
+}
+
 if (!shell) {
   shell = require('./build/Release/shell');
 }
@@ -25,7 +30,7 @@ if (!shell) {
 function run(cmd) {
   try {
     if (isWindows)
-	  cmd = 'cmd /C ' + cmd;
+      cmd = 'cmd /C ' + cmd;
     var code = shell.exec(cmd);
     return code;
   } catch (err) {
