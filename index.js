@@ -3,16 +3,29 @@
  * MIT Licensed
  *==========================================================================*/
 
-var shell = require('./build/Release/shell');
 var temp = require('temp');
 var fs = require('fs');
 var isWindows = require('os').platform().indexOf('win') === 0;
+
+var shell;
+if (isWindows && !fs.existsSync(__dirname + '/build/Release/shell.node')) {
+  try {
+    shell = require('./win32/shell');
+  } catch (err) {
+    throw new Error('execSync incompatible with installed nodejs');
+  }
+} 
+if (!shell) {
+  shell = require('./build/Release/shell');
+}
 
 /**
  * Runs `cmd` synchronously returning the exit code.
  */
 function run(cmd) {
   try {
+    if (isWindows)
+	  cmd = 'cmd /C ' + cmd;
     var code = shell.exec(cmd);
     return code;
   } catch (err) {
@@ -33,7 +46,7 @@ function exec(command) {
   var tempName = temp.path({suffix: '.exec'});
   var cmd;
   if (isWindows)
-    cmd = 'cmd /C ' + command + ' > ' + tempName + ' 2>&1';
+    cmd = command + ' > ' + tempName + ' 2>&1';
   else
     cmd = '(' + command + ') > ' + tempName + ' 2>&1';
 
