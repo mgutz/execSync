@@ -8,9 +8,17 @@ production servers.
 ## Install
 
 __Windows__ requires Python and Visual Studio 2012 (Express) installed for
-node to build. See [node-gyp installation](https://github.com/TooTallNate/node-gyp#installation)
+node to build. See [node-gyp installation](https://github.com/TooTallNate/node-gyp#installation).
+Pre-built binaries for node v0.8 and node v0.10 are packaged. They should work and if not try manually
+building.
 
     npm install execSync
+
+Sometimes a manual build is necessary on Windows even with all the tools in place, replace Visual Studio version
+with '2010' or '2012' based on the version installed.
+
+    npm install node-gyp -g
+    node-gyp rebuild --msvs_version=2012
 
 ## Usage
 
