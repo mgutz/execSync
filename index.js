@@ -10,11 +10,17 @@ var isWindows = require('os').platform().indexOf('win') === 0;
 var shell;
 if (isWindows) {
   if (!fs.existsSync(__dirname + '/build/Release/shell.node')) {
+    var nodeVersion = process.version;
+    var shellLib = 'v0.8/shell';
+    if (nodeVersion.indexOf('v0.10') === 0)
+      shellLib = 'v0.10/shell';
+
     try {
       //! Loading an add-on built for another version of nodeJs may
       //! cause seg faults. Windows + open source is not always pleasant
-      shell = require('./win32/shell');
+      shell = require('./win32/' + shellLib);
     } catch (err) {
+      console.error(err);
       throw new Error('execSync incompatible with installed nodejs');
     }
   }

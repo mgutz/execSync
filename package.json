@@ -16,6 +16,7 @@
     "node": "*"
   },
   "scripts": {
-    "test": "mocha test/unixSpec"
+    "test": "mocha test/unixSpec",
+    "install": "node install.js"
   }
 }
