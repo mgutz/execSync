@@ -18,5 +18,9 @@
   "scripts": {
     "test": "mocha test/unixSpec",
     "install": "node install.js"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/mgutz/execSync.git"
   }
 }
