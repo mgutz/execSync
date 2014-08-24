@@ -2,7 +2,7 @@
   "author": "Mario Gutierrez <mario@mgutz.com>",
   "name": "execSync",
   "description": "Node's missing execSync.",
-  "version": "1.0.2-pre",
+  "version": "1.0.2",
   "license": "MIT",
   "dependencies": {
     "temp": "~0.5.1"
@@ -20,7 +20,7 @@
     "install": "node install.js"
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/mgutz/execSync.git"
+    "type": "git",
+    "url": "https://github.com/mgutz/execSync.git"
   }
 }
