@@ -2,7 +2,7 @@
   "author": "Mario Gutierrez <mario@mgutz.com>",
   "name": "execSync",
   "description": "Node's missing execSync.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "license": "MIT",
   "dependencies": {
     "temp": "~0.5.1"
